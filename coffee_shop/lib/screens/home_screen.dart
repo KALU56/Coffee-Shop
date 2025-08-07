@@ -1,5 +1,6 @@
-import 'package:coffee_shop/widgets/search_bar.dart' as custom_widgets;
+import 'package:coffee_shop/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,13 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String searchTerm = '';
-
-  void handleSearch(String query) {
-    setState(() {
-      searchTerm = query;
-    });
-  }
+  String searchQuery = 'explore coffee';
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +18,19 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            custom_widgets.SearchBar(onSearch: handleSearch), // Use the widget here
-           
+            CustomSearchBar(
+              onChanged: (value) {
+                setState(() {
+                  searchQuery = value;
+                });
+              },
+            ),
+            // You can use searchQuery to filter content below
+            Expanded(
+              child: Center(
+                child: Text('Search result for: $searchQuery'),
+              ),
+            ),
           ],
         ),
       ),
